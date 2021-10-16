@@ -1,5 +1,5 @@
 <template>
-  <v-form @submit.prevent="sendForm" ref="loginForm">
+  <v-form @submit.prevent="sendForm" ref="registerForm">
     <v-text-field
       outlined
       label="correo electrónico"
@@ -15,19 +15,22 @@
       :rules="[required]"
     >
     </v-text-field>
-
-    <v-layout d-flex flex-wrap justify-space-around>
-      <v-btn color="success" type="submit" class="my-3">Inicia sesión</v-btn>
-      <v-btn color="amber" type="button" @click="resetValidations" class="my-3">Limpia Validacion</v-btn>
-      <v-btn color="error" type="reset" @click="resetForm" class="my-3">Limpia formulario</v-btn>
+    <v-layout justify-space-around>
+      <v-btn color="success" type="submit">Registrarse</v-btn>
+      <v-btn color="amber" type="button" @click="resetValidations"
+        >Limpia Validacion</v-btn
+      >
+      <v-btn color="error" type="reset" @click="resetForm"
+        >Limpia formulario</v-btn
+      >
     </v-layout>
   </v-form>
 </template>
 
 <script>
-import Firebase from "firebase";
+  import Firebase from "firebase";
 export default {
-  name: "LoginForm",
+name: "SignUp",
   data: () => ({
     form: {
       email: "",
@@ -36,37 +39,33 @@ export default {
   }),
   methods: {
     async sendForm() {
+      //ajustar para registro
       if (this.$refs.loginForm.validate()) {
         try {
-          await Firebase.auth().signInWithEmailAndPassword(
+          await Firebase.auth().signInWithEmailAndPassword( // en dez de auth debe haber otro
             this.form.email,
             this.form.password
           );
           this.$store.dispatch(
-            "session/activateSession",
+            "session/configurateUser",
             Firebase.auth().currentUser
           );
           this.$emit("success");
-          this.$router.push("/home");
         } catch (e) {
           console.log("error: ", e);
         }
       }
     },
     resetValidations() {
-      console.log("aaaa");
       this.$refs.loginForm.resetValidation();
     },
     resetForm() {
-      console.log("aaaa");
       this.$refs.loginForm.reset();
     },
     required(value) {
       return !!value || "Campo obligatorio, por favor ingresar credenciales.";
     },
   },
-};
+}
 </script>
 
-<style>
-</style>

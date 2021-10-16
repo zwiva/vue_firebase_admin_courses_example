@@ -1,47 +1,19 @@
 <template>
   <v-app-bar app color="primary" dark>
     <v-app-bar-nav-icon @click="$emit('toggleDrawer')"></v-app-bar-nav-icon>
-    <div class="d-flex align-center">
-      <!-- <v-img
-        alt="Vuetify Logo"
-        class="shrink mr-2"
-        contain
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-logo-dark.png"
-        transition="scale-transition"
-        width="40"
-      />
-
-      <v-img
-        alt="Vuetify Name"
-        class="shrink mt-1 hidden-sm-and-down"
-        contain
-        min-width="100"
-        src="https://cdn.vuetifyjs.com/images/logos/vuetify-name-dark.png"
-        width="100"
-      /> -->
-    </div>
-
+    <div class="d-flex align-center"></div>
     <v-spacer></v-spacer>
-
-    <!-- <v-btn
-      href="https://github.com/vuetifyjs/vuetify/releases/latest"
-      target="_blank"
-      text
-    >
-      <span class="mr-2">Latest Release</span>
-      <v-icon>mdi-open-in-new</v-icon>
-    </v-btn> -->
-
     <LogoutButton v-if="this.$store.state.session.user" />
-    <LoginModalForm v-else />
+    <LoginButton v-else />
   </v-app-bar>
 </template>
 
 <script>
-import LoginModalForm from "../Login/LoginModalForm.vue";
+import LoginButton from "../Login/LoginButton.vue";
 import LogoutButton from "../Login/LogoutButton.vue";
 export default {
-  components: { LoginModalForm, LogoutButton },
+  name: "Navbar",
+  components: { LoginButton, LogoutButton },
   updated() {
     console.log("updated", this.$store.state.session.user);
   },

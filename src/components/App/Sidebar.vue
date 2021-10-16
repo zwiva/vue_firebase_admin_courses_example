@@ -2,9 +2,9 @@
   <v-navigation-drawer :value="value" @input="$emit('input', $event)" app>
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <v-img src="https://randomuser.me/api/portraits/women/85.jpg"></v-img>
+        <v-img src="https://freesvgdesigns.com/wp-content/uploads/2019/08/01028-NEW.jpg" height="40"></v-img>
       </v-list-item-avatar>
-      <v-list-item-title>Linda Leider</v-list-item-title>
+      <v-list-item-title>Bienvenid@</v-list-item-title>
     </v-list-item>
     <v-divider></v-divider>
     <v-list dense>
@@ -20,10 +20,11 @@
 
 <script>
 export default {
+  name: "Sidebar",
   data: () => ({
     items: [
-      { title: "Inicio", icon: "mdi-home", to: "/home" },
-      { title: "Cursos", icon: "mdi-apps", to: "/courses" },
+      { title: "Cursos", icon: "mdi-apps", to: "/home" },
+      { title: "Administrar cursos", icon: "mdi-table-edit", to: "/administrarcursos" },
     ],
   }),
   props: ["value"],
