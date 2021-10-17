@@ -1,27 +1,56 @@
 <template>
-  <v-form @submit.prevent="sendForm" ref="loginForm">
-    <v-text-field
-      outlined
-      label="correo electrónico"
-      type="email"
-      v-model="form.email"
-      :rules="[required]"
-    ></v-text-field>
-    <v-text-field
-      outlined
-      label="contraseña"
-      type="password"
-      v-model="form.password"
-      :rules="[required]"
-    >
-    </v-text-field>
+  <div>
+    <v-form @submit.prevent="sendForm" ref="loginForm">
+      <v-text-field
+        outlined
+        label="correo electrónico"
+        type="email"
+        v-model="form.email"
+        :rules="[required]"
+      ></v-text-field>
+      <v-text-field
+        outlined
+        label="contraseña"
+        type="password"
+        v-model="form.password"
+        :rules="[required]"
+      >
+      </v-text-field>
 
-    <v-layout d-flex flex-wrap justify-space-around>
-      <v-btn color="success" type="submit" class="my-3">Inicia sesión</v-btn>
-      <v-btn color="amber" type="button" @click="resetValidations" class="my-3">Limpia Validacion</v-btn>
-      <v-btn color="error" type="reset" @click="resetForm" class="my-3">Limpia formulario</v-btn>
-    </v-layout>
-  </v-form>
+      <v-layout d-flex flex-wrap justify-space-around>
+        <v-btn color="success" type="submit" class="my-3">Inicia sesión</v-btn>
+        <v-btn
+          color="amber"
+          type="button"
+          @click="resetValidations"
+          class="my-3"
+          >Limpia Validacion</v-btn
+        >
+        <v-btn color="error" type="reset" @click="resetForm" class="my-3"
+          >Limpia formulario</v-btn
+        >
+      </v-layout>
+    </v-form>
+
+    <div class="text-center">
+      <v-dialog v-model="dialog" width="500">
+        <v-card>
+          <v-card-title class="text-h5 grey lighten-2">Hola</v-card-title>
+          <v-card-text class="mt-2"
+            >Bienvenido al sistema de administración de cursos.</v-card-text
+          >
+          <!-- <v-divider></v-divider> -->
+          <v-card-text class="mt-2"
+            >Será redirigo automáticamente... espere</v-card-text
+          >
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <!-- <v-btn color="primary" text @click="welcomeSession"> Ok. </v-btn> -->
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,21 +62,28 @@ export default {
       email: "",
       password: "",
     },
+    dialog: false,
   }),
   methods: {
     async sendForm() {
       if (this.$refs.loginForm.validate()) {
         try {
+          this.dialog = true;
           await Firebase.auth().signInWithEmailAndPassword(
             this.form.email,
             this.form.password
           );
+
           this.$store.dispatch(
             "session/activateSession",
             Firebase.auth().currentUser
           );
           this.$emit("success");
-          this.$router.push("/home");
+
+          setTimeout(() => {
+            this.dialog = false;
+            this.$router.push("/home");
+          }, 3000);
         } catch (e) {
           console.log("error: ", e);
         }

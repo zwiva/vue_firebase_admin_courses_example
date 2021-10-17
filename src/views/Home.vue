@@ -1,8 +1,8 @@
 <template>
   <div>
     <v-sheet class="ma-6">
-      <h1 class="grey--text">
-        Lista de cursos <v-btn @click="addNewCourse">Agregar nuevo curso</v-btn>
+      <h1 class="grey--text text-center pa-4 ">
+        Lista de cursos
       </h1>
       <AllCourses :courses="courses" />
       <!-- <pre> {{ courses }}</pre> -->
@@ -21,11 +21,7 @@ export default {
     courses: [],
     drawer: null,
   }),
-  methods: {
-    addNewCourse() {
-      console.log("desplegar modal para agregar nuevo curso");
-    },
-  },
+ 
   mounted() {
     Firebase.firestore()
       .collection("courses")
