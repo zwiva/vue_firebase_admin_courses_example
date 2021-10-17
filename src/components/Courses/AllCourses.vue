@@ -2,9 +2,7 @@
   <div>
     <v-row d-flex flex-wrap class="justify-center">
       <div v-for="course in courses" :key="course.id">
-
         <v-card outlined width="300px" class="my-3 mx-3">
-        
           <div class="text-center">
             <img :src="course.imagen" alt="" height="185" class="my-4" />
           </div>
@@ -22,7 +20,9 @@
             <v-timeline align-top dense class="mx-3 py-4">
               <v-timeline-item color="purple" small>
                 <div>
-                  <span>Costo: <strong>{{ course.costo }}</strong></span>
+                  <span
+                    >Costo: <strong>{{ course.costo }}</strong></span
+                  >
                 </div>
                 <div>
                   <span>Duracion: {{ course.duracion }}</span>
@@ -31,10 +31,12 @@
 
               <v-timeline-item color="green" small>
                 <div>
-                  <span>Cupos: <strong>{{ course.cupos }}</strong></span>
+                  <span
+                    >Cupos: <strong>{{ course.cupos }}</strong></span
+                  >
                 </div>
                 <div>
-                  <span>Completado: {{ course.estado ? 'SI': 'NO' }}</span>
+                  <span>Completado: {{ course.estado ? "SI" : "NO" }}</span>
                 </div>
               </v-timeline-item>
 
@@ -56,7 +58,6 @@
                 </div>
               </v-timeline-item>
             </v-timeline>
-        
           </div>
         </v-card>
       </div>
@@ -73,6 +74,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

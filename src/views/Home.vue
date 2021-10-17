@@ -1,11 +1,8 @@
 <template>
   <div>
     <v-sheet class="ma-6">
-      <h1 class="grey--text text-center pa-4 ">
-        Lista de cursos
-      </h1>
+      <h1 class="grey--text text-center pa-4">Lista de cursos</h1>
       <AllCourses :courses="courses" />
-      <!-- <pre> {{ courses }}</pre> -->
     </v-sheet>
   </div>
 </template>
@@ -21,7 +18,7 @@ export default {
     courses: [],
     drawer: null,
   }),
- 
+
   mounted() {
     Firebase.firestore()
       .collection("courses")

@@ -1,6 +1,8 @@
 <template>
   <div class="pa-5 mx-lg-auto">
-    <div class="grey--text my-2">Ingrese sus datos para registrarse e iniciar sesión:</div>
+    <div class="grey--text my-2">
+      Ingrese sus datos para registrarse e iniciar sesión:
+    </div>
     <v-form @submit.prevent="sendForm" ref="registerForm">
       <v-text-field
         outlined
