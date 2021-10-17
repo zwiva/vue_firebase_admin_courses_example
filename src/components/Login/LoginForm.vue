@@ -54,11 +54,9 @@ export default {
       }
     },
     resetValidations() {
-      console.log("aaaa");
       this.$refs.loginForm.resetValidation();
     },
     resetForm() {
-      console.log("aaaa");
       this.$refs.loginForm.reset();
     },
     required(value) {
