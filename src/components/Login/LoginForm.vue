@@ -33,16 +33,15 @@
     </v-form>
 
     <div class="text-center">
-      <v-dialog v-model="dialog" width="500">
+      <v-dialog v-model="dialog" width="550">
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">Hola</v-card-title>
-          <v-card-text class="mt-2"
-            >Bienvenido al sistema de administración de cursos.</v-card-text
-          >
-          <!-- <v-divider></v-divider> -->
-          <v-card-text class="mt-2"
-            >Será redirigo automáticamente... espere</v-card-text
-          >
+          <v-card-text class="mt-4 text-center">
+            <strong>Bienvenido al sistema de administración de cursos.</strong>
+          </v-card-text>
+          <v-card-text class="text-center">
+            <small class="">Será redirigo automáticamente... espere</small>
+          </v-card-text>
           <v-card-actions>
             <v-spacer></v-spacer>
             <!-- <v-btn color="primary" text @click="welcomeSession"> Ok. </v-btn> -->
@@ -78,8 +77,6 @@ export default {
             "session/activateSession",
             Firebase.auth().currentUser
           );
-          this.$emit("success");
-
           setTimeout(() => {
             this.dialog = false;
             this.$router.push("/cursos");

@@ -4,6 +4,7 @@ export const coursesModule = {
   namespaced: true,
   state: {
     courses: [],
+    courseToDelete: [],
   },
   getters: {
     // shopCartTotalAmount(state) {
@@ -41,15 +42,15 @@ export const coursesModule = {
         return acum;
       }, 0);
     },
-    coursesAmount(state){
+    coursesAmount(state) {
       // console.log(typeof state.courses)
       return state.courses.length;
-    }
+    },
   },
   mutations: {
     GET_ALL_COURSES(state, courses) {
       state.courses = courses;
-      console.log("state.courses", state.courses);
+      // console.log("state.courses", state.courses);
     },
     CREATE_COURSE(state, newCourse) {
       state.courses.push(newCourse);
@@ -62,11 +63,12 @@ export const coursesModule = {
       const indexOfCourse = state.courses.indexOf(courseToRemove[0]);
 
       state.courses.splice(indexOfCourse, 1);
+      state.courseToDelete = [];
     },
   },
   actions: {
     getAllCourses(context) {
-      console.log("traer todos los cursos para administrarlos");
+      // console.log("traer todos los cursos para administrarlos");
       Firebase.firestore()
         .collection("courses")
         .get()
@@ -81,8 +83,20 @@ export const coursesModule = {
     addNewCourse(context, course) {
       context.commit("CREATE_COURSE", course);
     },
-    deleteCourse(context, course) {
-      context.commit("DELETE_COURSE", course.id);
+    deleteCourse(context) {
+      // console.log("in delete action", context.state.courseToDelete.id);
+      const courseToDeleteId = context.state.courseToDelete.id;
+
+      Firebase.firestore()
+        .collection("courses")
+        .doc(courseToDeleteId)
+        .delete()
+        .then(() => {
+          // this.$store.dispatch("courses/deleteCourse", item.id);
+          // this.$store.dispatch("courses/getAllCourses");
+        });
+
+      context.commit("DELETE_COURSE", courseToDeleteId);
     },
   },
 };

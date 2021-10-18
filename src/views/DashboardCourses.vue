@@ -181,9 +181,26 @@
               label="Imagen (agregar nueva)"
               :rules="[required]"
             ></v-text-field>
-            <v-btn type="submit" color="success">Guardar</v-btn>
+            <v-layout d-flex flex-wrap justify-space-around>
+              <v-btn type="submit" color="success">Crear</v-btn>
+              <v-btn type="button" @click="closeModalCreateCourse" color="error"
+                >Cancelar</v-btn
+              >
+            </v-layout>
           </v-form>
         </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-dialog v-model="courseCreationSuccess" width="320">
+      <v-card class="text-center pa-4">
+        <v-card-text>Curso creado exitosamente </v-card-text>
+        <v-btn
+          @click="closeModalCreationSuccess"
+          color="primary"
+          class="text-center"
+          >ok</v-btn
+        >
       </v-card>
     </v-dialog>
   </div>
@@ -211,7 +228,7 @@ export default {
       fechaderegistro: "",
     },
     dialogCreate: false,
-    dialogEdit: false,
+    courseCreationSuccess: false,
   }),
   mounted() {
     this.$store.dispatch("courses/getAllCourses");
@@ -226,7 +243,9 @@ export default {
           .collection("courses")
           .add(this.course)
           .then(() => {
-            this.$router.push("/cursos");
+            this.$store.dispatch("courses/getAllCourses");
+            this.dialogCreate = false;
+            this.courseCreationSuccess = true;
           })
           .catch((e) => {
             console.log(e);
@@ -235,6 +254,17 @@ export default {
     },
     required(value) {
       return !!value || "Este campo es obligatorio";
+    },
+    resetValidations() {
+      this.$refs.formCreateCourse.resetValidation();
+    },
+    closeModalCreateCourse() {
+      this.dialogCreate = false;
+    },
+    closeModalCreationSuccess() {
+      this.courseCreationSuccess = false;
+      this.course = {};
+      this.resetValidations();
     },
   },
 };
@@ -253,28 +283,24 @@ export default {
 .border--info {
   border: 2px solid #2196f3 !important;
 }
-
 .color--brown {
   color: brown;
 }
 .border--brown {
   border: 2px solid brown !important;
 }
-
 .color--pink {
   color: hotpink;
 }
 .border--pink {
   border: 2px solid hotpink !important;
 }
-
 .color--error {
   color: #ff5252;
 }
 .border--error {
   border: 2px solid #ff5252 !important;
 }
-
 .color--orange {
   color: #fb8c00;
 }

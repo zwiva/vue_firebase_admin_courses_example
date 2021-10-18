@@ -29,33 +29,48 @@
           <v-btn icon @click="goToEditFormCourse(item)">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
-          <v-btn icon @click="deleteCourse(item)">
+
+          <v-btn icon @click="showDialogDeleteConfirmation(item)">
             <v-icon>mdi-delete</v-icon>
           </v-btn>
         </div>
       </template>
     </v-data-table>
 
-    <!-- Dialogo para eliminar -->
-    <v-dialog v-model="dialogDelete" width="500">
-      <v-card>
-        <v-card-title class="text-h5 grey lighten-2">Atención:</v-card-title>
-        <v-card-text class="mt-2">Elemento borrado existosamente</v-card-text>
-        <v-divider></v-divider>
-        <v-card-actions>
-          <v-spacer></v-spacer>
- 
-          <v-btn color="primary" text @click="stayInDashboard">
-            Ok.
-          </v-btn>
-        </v-card-actions>
+    <!-- Modal para confirmar eliminacion -->
+    <v-dialog v-model="dialogDeleteConfirmation" width="320">
+      <v-card class="text-center pa-4">
+        <v-card-text>Confirme que desee eliminar el curso</v-card-text>
+        <div d-flex flex-wrap>
+          <v-btn
+            @click="runDeleteCourse()"
+            color="warning"
+            class="text-center mr-1"
+            >Si, eliminar</v-btn
+          >
+          <v-btn @click="cancelDeleteCourse" color="primary" class="text-center"
+            >No, regresar</v-btn
+          >
+        </div>
+      </v-card>
+    </v-dialog>
+    <!-- Modal para avisar eliminacion -->
+    <v-dialog v-model="dialogDeleteSuccessfull" width="320">
+      <v-card class="text-center pa-4">
+        <v-card-text>Curso aliminado exitosamente </v-card-text>
+        <v-btn
+          @click="closeDialogDeleteSuccessfull"
+          color="primary"
+          class="text-center"
+          >ok</v-btn
+        >
       </v-card>
     </v-dialog>
   </div>
 </template>
 
 <script>
-import Firebase from "firebase";
+// import Firebase from "firebase";
 export default {
   name: "TableCourses",
   data: () => ({
@@ -69,7 +84,9 @@ export default {
       { text: "Fecha de registro", value: "fechaderegistro" },
       { text: "Acciones", value: "actions" },
     ],
-    dialogDelete: false,
+
+    dialogDeleteConfirmation: false,
+    dialogDeleteSuccessfull: false,
   }),
   props: {
     courses: { type: Array, require: true },
@@ -78,23 +95,28 @@ export default {
     goToEditFormCourse(item) {
       this.$router.push(`/cursos/${item.id}`);
     },
-    openDialogDeleteCourse() {
-      this.dialogDelete = true;
+    showDialogDeleteConfirmation(item) {
+      this.dialogDeleteConfirmation = true;
+      this.$store.state.courses.courseToDelete = item;
+      // console.log(this.$store.state.courses.courseToDelete)
     },
-    stayInDashboard() {
-      this.dialogDelete = false;
+    cancelDeleteCourse() {
+      this.dialogDeleteConfirmation = false;
     },
-    deleteCourse(item) {
-      this.dialogDelete = true
-      Firebase.firestore()
-        .collection("courses")
-        .doc(item.id)
-        .delete()
-        .then(() => {
-          this.$store.dispatch("courses/deleteCourse", item.id);
-          this.$store.dispatch("courses/getAllCourses");
-        });
+    runDeleteCourse() {
+      console.log("run delete course");
+      this.$store.dispatch("courses/deleteCourse");
+      this.dialogDeleteConfirmation = false;
+      this.dialogDeleteSuccessfull = true;
+
+      // console.log(this.$store.state.courses.courseToDelete)
     },
+    closeDeleteDialogConfirmation() {
+      this.deleteDialogConfirmation = false;
+    },
+    closeDialogDeleteSuccessfull(){
+      this.dialogDeleteSuccessfull = false;
+    }
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="text-center">
-      <v-dialog v-model="dialog" width="500">
+      <v-dialog v-model="dialog" width="300">
         <template v-slot:activator="{ on, attrs }">
           <v-btn
             text
@@ -22,9 +22,9 @@
 
         <v-card>
           <v-card-title class="text-h5 grey lighten-2">Atención:</v-card-title>
-          <v-card-text class="mt-2">Esta cerrando su sesión.</v-card-text>
+          <v-card-text class="mt-5">Esta cerrando su sesión.</v-card-text>
           <v-divider></v-divider>
-          <v-card-actions>
+          <v-card d-flex flex-wrap class="pa-4 text-right">
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="stayInSession">
               No, me quedo.
@@ -32,7 +32,7 @@
             <v-btn color="primary" text @click="confirmLogOutSession">
               Si, acepto.
             </v-btn>
-          </v-card-actions>
+          </v-card>
         </v-card>
       </v-dialog>
     </div>
@@ -51,7 +51,7 @@ export default {
     logOutSession() {
       Firebase.auth().onAuthStateChanged(function (user) {
         if (user) {
-          console.log("usuario quiere cerrar sesion");
+          // console.log("usuario quiere cerrar sesion");
         }
       });
       this.dialog = true;

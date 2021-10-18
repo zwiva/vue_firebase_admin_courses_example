@@ -61,9 +61,9 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
   if (to.meta.requirelogin)
     if (Store.state.session.user) {
-      next(); //siguiente
+      next();
     } else {
-      next("/login"); //arg opcional para que lleve para el login
+      next("/login"); 
     }
   else {
     next();
