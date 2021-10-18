@@ -1,5 +1,6 @@
 # testvuezwiva
 
+# deployed in: https://vuetestzwiva.web.app
 ## Project setup
 ```
 npm install
