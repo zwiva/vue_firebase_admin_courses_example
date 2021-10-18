@@ -23,7 +23,7 @@ export default {
   name: "Sidebar",
   data: () => ({
     items: [
-      { title: "Cursos", icon: "mdi-apps", to: "/home" },
+      { title: "Cursos", icon: "mdi-apps", to: "/cursos" },
       { title: "Administrar cursos", icon: "mdi-table-edit", to: "/administrarcursos" },
     ],
   }),

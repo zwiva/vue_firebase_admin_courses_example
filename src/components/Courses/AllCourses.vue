@@ -7,7 +7,7 @@
             <img :src="course.imagen" alt="" height="185" class="my-4" />
           </div>
 
-          <div style="background-color: #e1dfdf" width="300" class="py-4">
+          <div style="background-color: #e1dfdf">
             <div class="mx-6 px-6 py-4">
               <div>
                 <h4>{{ course.nombre }}</h4>
@@ -17,7 +17,7 @@
               </div>
             </div>
 
-            <v-timeline align-top dense class="mx-3 py-4">
+            <v-timeline align-top dense class="mx-3 ">
               <v-timeline-item color="purple" small>
                 <div>
                   <span

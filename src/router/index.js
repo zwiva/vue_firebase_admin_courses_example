@@ -7,7 +7,7 @@ Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/home",
+    path: "/cursos",
     name: "Home",
     component: Home,
     meta: {
@@ -37,6 +37,15 @@ const routes = [
     name: "DashboardCourses",
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/DashboardCourses.vue"),
+    meta: {
+      requirelogin: true,
+    },
+  },
+  {
+    path: "/cursos/:id",
+    name: "EditCourse",
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/EditCourse.vue"),
     meta: {
       requirelogin: true,
     },

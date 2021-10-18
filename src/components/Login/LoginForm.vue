@@ -82,7 +82,7 @@ export default {
 
           setTimeout(() => {
             this.dialog = false;
-            this.$router.push("/home");
+            this.$router.push("/cursos");
           }, 1500);
         } catch (e) {
           console.log("error: ", e);

@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <div class="pa-6">
+    <!-- Tabla resumen -->
     <v-data-table
       dense
       :headers="headers"
@@ -25,7 +26,7 @@
 
       <template v-slot:[`item.actions`]="{ item }">
         <div>
-          <v-btn icon @click="goToEditCourse(item)">
+          <v-btn icon @click="goToEditFormCourse(item)">
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
           <v-btn icon @click="deleteCourse(item)">
@@ -34,10 +35,27 @@
         </div>
       </template>
     </v-data-table>
+
+    <!-- Dialogo para eliminar -->
+    <v-dialog v-model="dialogDelete" width="500">
+      <v-card>
+        <v-card-title class="text-h5 grey lighten-2">Atención:</v-card-title>
+        <v-card-text class="mt-2">Elemento borrado existosamente</v-card-text>
+        <v-divider></v-divider>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+ 
+          <v-btn color="primary" text @click="stayInDashboard">
+            Ok.
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
 </template>
 
 <script>
+import Firebase from "firebase";
 export default {
   name: "TableCourses",
   data: () => ({
@@ -51,20 +69,32 @@ export default {
       { text: "Fecha de registro", value: "fechaderegistro" },
       { text: "Acciones", value: "actions" },
     ],
+    dialogDelete: false,
   }),
   props: {
     courses: { type: Array, require: true },
   },
   methods: {
-    goToEditCourse() {
-      console.log("editando");
+    goToEditFormCourse(item) {
+      this.$router.push(`/cursos/${item.id}`);
     },
-    deleteCourse() {
-      console.log("eliminando");
+    openDialogDeleteCourse() {
+      this.dialogDelete = true;
+    },
+    stayInDashboard() {
+      this.dialogDelete = false;
+    },
+    deleteCourse(item) {
+      this.dialogDelete = true
+      Firebase.firestore()
+        .collection("courses")
+        .doc(item.id)
+        .delete()
+        .then(() => {
+          this.$store.dispatch("courses/deleteCourse", item.id);
+          this.$store.dispatch("courses/getAllCourses");
+        });
     },
   },
-  // created() {
-  //   console.log("courses", this.courses);
-  // },
 };
 </script>
