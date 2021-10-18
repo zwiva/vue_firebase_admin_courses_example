@@ -114,9 +114,9 @@ export default {
     closeDeleteDialogConfirmation() {
       this.deleteDialogConfirmation = false;
     },
-    closeDialogDeleteSuccessfull(){
+    closeDialogDeleteSuccessfull() {
       this.dialogDeleteSuccessfull = false;
-    }
+    },
   },
 };
 </script>

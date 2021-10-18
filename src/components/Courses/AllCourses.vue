@@ -17,7 +17,7 @@
               </div>
             </div>
 
-            <v-timeline align-top dense class="mx-3 ">
+            <v-timeline align-top dense class="mx-3">
               <v-timeline-item color="purple" small>
                 <div>
                   <span

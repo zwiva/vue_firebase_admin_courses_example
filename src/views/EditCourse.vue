@@ -92,7 +92,10 @@
     </v-dialog>
     <v-dialog v-model="courseEditFailed" width="320">
       <v-card class="text-center pa-4">
-        <v-card-text>Cantidad de inscritos supera los cupos, por favor corregir.</v-card-text>
+        <v-card-text
+          >Cantidad de inscritos supera los cupos, por favor
+          corregir.</v-card-text
+        >
         <v-btn
           @click="closecourseEditFailed"
           color="primary"
@@ -150,7 +153,7 @@ export default {
     },
     closecourseEditFailed() {
       this.courseEditFailed = false;
-    }
+    },
   },
   beforeRouteEnter(to, from, next) {
     Firebase.firestore()
@@ -165,6 +168,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

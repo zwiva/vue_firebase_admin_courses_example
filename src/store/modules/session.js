@@ -9,7 +9,7 @@ export const sessionModule = {
     },
     REGISTER_USER(state, newUser) {
       state.user = newUser;
-      console.log("usuario registrado");
+      console.log("usuario registrado", state.user);
     },
   },
   actions: {

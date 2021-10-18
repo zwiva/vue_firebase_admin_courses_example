@@ -2,7 +2,10 @@
   <v-navigation-drawer :value="value" @input="$emit('input', $event)" app>
     <v-list-item class="px-2">
       <v-list-item-avatar>
-        <v-img src="https://freesvgdesigns.com/wp-content/uploads/2019/08/01028-NEW.jpg" height="40"></v-img>
+        <v-img
+          src="https://freesvgdesigns.com/wp-content/uploads/2019/08/01028-NEW.jpg"
+          height="40"
+        ></v-img>
       </v-list-item-avatar>
       <v-list-item-title>Bienvenid@</v-list-item-title>
     </v-list-item>
@@ -24,12 +27,13 @@ export default {
   data: () => ({
     items: [
       { title: "Cursos", icon: "mdi-apps", to: "/cursos" },
-      { title: "Administrar cursos", icon: "mdi-table-edit", to: "/administrarcursos" },
+      {
+        title: "Administrar cursos",
+        icon: "mdi-table-edit",
+        to: "/administrarcursos",
+      },
     ],
   }),
   props: ["value"],
 };
 </script>
-
-<style>
-</style>

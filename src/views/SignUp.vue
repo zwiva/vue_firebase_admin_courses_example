@@ -62,7 +62,6 @@ export default {
             this.form.password
           );
           this.$router.push("/cursos");
-          this.$emit("success");
         } catch (e) {
           console.log("error: ", e);
         }

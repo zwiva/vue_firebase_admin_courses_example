@@ -63,7 +63,7 @@ router.beforeEach((to, from, next) => {
     if (Store.state.session.user) {
       next();
     } else {
-      next("/login"); 
+      next("/login");
     }
   else {
     next();
