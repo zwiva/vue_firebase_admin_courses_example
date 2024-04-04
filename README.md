@@ -1,4 +1,13 @@
-# testvuezwiva
+# Cursos Alfaweb example
+
+Using:
+- vue
+- vuetify
+- firebase (deploy & store)
+
+### keep for remember firebase use
+
+-----------------
 
 # deployed in: https://vuetestzwiva.web.app
 ## Project setup
